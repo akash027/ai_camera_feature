@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Camera Solutions — Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:         #F7F7F3;
+  --surface:    #FFFFFF;
+  --border:     #E4E4DE;
+  --border-2:   #D4D4CC;
+
+  --accent:     #C7451B;
+  --accent-dim: #FDF0E9;
+
+  --text:       #141417;
+  --text-2:     #5B5E68;
+  --text-3:     #8B8E96;
+
+  --f-display:  "Archivo", ui-sans-serif, sans-serif;
+  --f-body:     "Manrope", ui-sans-serif, sans-serif;
+  --f-mono:     "JetBrains Mono", ui-monospace, monospace;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--f-body);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- TOP NAV ---------- */
+.topnav {
+  position: sticky; top: 0;
+  backdrop-filter: blur(12px);
+  background: rgba(247, 247, 243, 0.85);
+  border-bottom: 1px solid var(--border);
+  z-index: 100;
+  padding: 18px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.brand {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 15px; letter-spacing: 0.02em;
+  color: var(--text);
+}
+.brand span { color: var(--accent); }
+.topnav-meta {
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--text-3); letter-spacing: 0.05em;
+}
+
+/* ---------- LAYOUT ---------- */
+main { position: relative; }
+section {
+  padding: 100px 48px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.label {
+  display: inline-block;
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--accent); letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+}
+.title {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 48px; line-height: 1.12;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  margin-bottom: 20px;
+  max-width: 820px;
+}
+.subtitle {
+  font-size: 19px; color: var(--text-2);
+  max-width: 680px; margin-bottom: 64px;
+  line-height: 1.6;
+}
+
+hr.divider {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* ---------- HERO ---------- */
+.hero {
+  padding-top: 120px;
+  padding-bottom: 100px;
+}
+.hero h1 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 80px; line-height: 1.04;
+  letter-spacing: -0.03em;
+  color: var(--text);
+  margin-bottom: 36px;
+  max-width: 960px;
+}
+.hero h1 .accent { color: var(--accent); }
+.hero p {
+  font-size: 21px; color: var(--text-2);
+  max-width: 660px; line-height: 1.6;
+  margin-bottom: 64px;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 56px;
+}
+.hero-meta > div { min-width: 180px; }
+.hero-meta .k {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--text-3); letter-spacing: 0.14em;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.hero-meta .v {
+  font-weight: 600; font-size: 16px; color: var(--text);
+}
+
+/* ---------- SOLUTIONS ---------- */
+.solution-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.solution {
+  padding: 30px 30px;
+  background: var(--surface);
+}
+.solution-head {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 12px;
+}
+.solution .icon {
+  width: 38px; height: 38px;
+  background: var(--accent-dim);
+  border-radius: 3px;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--accent); flex-shrink: 0;
+}
+.solution .icon svg { width: 20px; height: 20px; }
+.solution h3 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 18px; letter-spacing: -0.005em;
+  color: var(--text);
+}
+.solution p {
+  font-size: 15.5px; color: var(--text-2); line-height: 1.6;
+}
+
+/* ---------- INDUSTRIES (PERSONALISATION) ---------- */
+.industry-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 44px 48px;
+  margin-bottom: 48px;
+}
+.industry .tag {
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--accent); letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.industry h4 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 19px; margin-bottom: 12px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.industry p {
+  font-size: 15.5px; color: var(--text-2); line-height: 1.6;
+}
+
+.custom-note {
+  padding: 32px 40px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  max-width: 880px;
+}
+.custom-note h5 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 20px; margin-bottom: 12px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.custom-note p {
+  font-size: 16px; color: var(--text-2); line-height: 1.65;
+}
+
+/* ---------- BENEFITS ---------- */
+.benefit-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 56px;
+}
+.benefit .stat {
+  font-family: var(--f-display); font-weight: 700;
+  color: var(--accent); font-size: 16px;
+  letter-spacing: -0.005em;
+  margin-bottom: 10px;
+}
+.benefit h4 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 19px; margin-bottom: 10px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.benefit p {
+  font-size: 15.5px; color: var(--text-2); line-height: 1.6;
+}
+
+/* ---------- IMPLEMENTATION ---------- */
+.impl-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+}
+.impl-step .n {
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--accent); letter-spacing: 0.14em;
+  margin-bottom: 14px;
+}
+.impl-step h4 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 18px; margin-bottom: 10px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.impl-step p {
+  font-size: 15px; color: var(--text-2); line-height: 1.6;
+}
+
+.impl-facts {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  margin-top: 56px;
+  padding-top: 40px;
+  border-top: 1px solid var(--border);
+}
+.impl-facts .k {
+  font-family: var(--f-mono); font-size: 11px;
+  color: var(--text-3); letter-spacing: 0.14em;
+  text-transform: uppercase; margin-bottom: 10px;
+}
+.impl-facts .v {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 22px; margin-bottom: 8px;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.impl-facts .d {
+  font-size: 14.5px; color: var(--text-2); line-height: 1.55;
+}
+
+/* ---------- WHY US ---------- */
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 64px;
+}
+.why-card {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.why-card .n {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 28px; color: var(--accent);
+  letter-spacing: -0.02em;
+}
+.why-card h4 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 19px; margin-bottom: 10px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.why-card p {
+  font-size: 15.5px; color: var(--text-2); line-height: 1.6;
+}
+
+/* ---------- SCENARIOS ---------- */
+.scenario {
+  padding: 36px 0;
+  border-bottom: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 68px 1fr;
+  gap: 28px;
+}
+.scenario:last-child { border-bottom: none; }
+.scenario .n {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 26px; color: var(--accent);
+  letter-spacing: -0.01em;
+}
+.scenario h4 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 21px; margin-bottom: 12px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.scenario p {
+  font-size: 17px; color: var(--text-2); line-height: 1.65;
+  max-width: 780px;
+}
+.scenario .outcome {
+  margin-top: 16px;
+  font-size: 15px;
+  color: var(--accent);
+  font-family: var(--f-mono);
+}
+
+/* ---------- NEXT STEP ---------- */
+.next-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 64px;
+}
+.next-card {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 20px;
+  align-items: start;
+}
+.next-card .n {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 28px; color: var(--accent);
+  letter-spacing: -0.02em;
+}
+.next-card h4 {
+  font-family: var(--f-display); font-weight: 700;
+  font-size: 19px; margin-bottom: 10px;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+.next-card p {
+  font-size: 15.5px; color: var(--text-2); line-height: 1.6;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+  padding: 32px 48px;
+  border-top: 1px solid var(--border);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--f-mono); font-size: 12px;
+  color: var(--text-3); letter-spacing: 0.08em;
+  max-width: 1120px; margin: 0 auto;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 1000px) {
+  section { padding: 72px 32px; }
+  .hero h1 { font-size: 58px; }
+  .title { font-size: 36px; }
+  .hero p { font-size: 19px; }
+  .subtitle { font-size: 17px; }
+  .solution-list { grid-template-columns: 1fr; }
+  .industry-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  .benefit-list { grid-template-columns: 1fr; gap: 32px; }
+  .impl-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .impl-facts { grid-template-columns: 1fr; gap: 24px; }
+  .why-grid { grid-template-columns: 1fr; gap: 32px; }
+  .next-grid { grid-template-columns: 1fr; gap: 32px; }
+}
+@media (max-width: 640px) {
+  section { padding: 60px 22px; }
+  .topnav { padding: 14px 22px; }
+  .topnav-meta { display: none; }
+  .hero { padding-top: 80px; padding-bottom: 72px; }
+  .hero h1 { font-size: 42px; }
+  .hero p { font-size: 17px; }
+  .title { font-size: 30px; }
+  .subtitle { font-size: 16px; }
+  .industry-grid { grid-template-columns: 1fr; gap: 32px; }
+  .impl-grid { grid-template-columns: 1fr; gap: 32px; }
+  .scenario { grid-template-columns: 1fr; gap: 8px; }
+  .hero-meta { gap: 24px; }
+  .custom-note { padding: 24px 22px; }
+  footer { padding: 24px 22px; flex-direction: column; gap: 10px; }
+}
+
+/* ---------- PRINT ---------- */
+@media print {
+  .topnav { display: none; }
+  section { page-break-after: always; }
+  body { background: white; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="brand">Vision AI <span>/</span> Camera Solutions</div>
+</nav>
+
+<main>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="label">AI-Powered Camera Solutions · Proposal</div>
+  <h1>AI vision for <span class="accent">safer, smarter</span> operations.</h1>
+  <p>
+    AI-powered camera capabilities that work with your existing CCTV infrastructure —
+    designed and built around your industry, your floor, and the outcomes that matter to you.
+  </p>
+
+  <div class="hero-meta">
+    <div><div class="k">Applicable To</div><div class="v">Manufacturing · Warehousing · Retail · Logistics</div></div>
+    <div><div class="k">Works With</div><div class="v">Existing IP / CCTV Cameras</div></div>
+    <div><div class="k">Deployment</div><div class="v">On-Premise or Cloud</div></div>
+    <div><div class="k">Status</div><div class="v">Proposal for Discussion</div></div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ SOLUTIONS ============ -->
+<section id="solutions">
+  <div class="label">Core AI Camera Capabilities</div>
+  <h2 class="title">Ten capabilities every operation can benefit from.</h2>
+  <p class="subtitle">
+    The ten capabilities below cover what most industrial and commercial operations need —
+    safety, security, quality, and productivity. Each one would be built on top of your existing
+    cameras, tuned to your site.
+  </p>
+
+  <div class="solution-list">
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L4 7v5c0 5 3 8 8 10 5-2 8-5 8-10V7l-8-5z"/><path d="M9 11h6"/></svg>
+        </div>
+        <h3>PPE Compliance Detection</h3>
+      </div>
+      <p>Continuous detection of helmets, gloves, high-vis vests, safety shoes, and eye protection. Per-zone rules so each camera knows what counts as compliant in its area.</p>
+    </div>
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="7" r="3"/><path d="M5 21a7 7 0 0 1 14 0"/><path d="M3 11l2 2M21 11l-2 2"/></svg>
+        </div>
+        <h3>Worker Safety &amp; Restricted Zones</h3>
+      </div>
+      <p>Virtual fences around machinery, forklift aisles, and restricted zones. Instant alerts when a worker breaches a boundary or approaches unsafe areas.</p>
+    </div>
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2c-1 3-3 5-3 8a3 3 0 0 0 6 0c0-1-1-2-1-3"/><path d="M12 2c3 3 6 6 6 11a6 6 0 0 1-12 0"/></svg>
+        </div>
+        <h3>Fire &amp; Smoke Detection</h3>
+      </div>
+      <p>Visual fire and smoke recognition across storage areas, production lines, and critical zones — often flagging early signals before conventional sensors reach threshold.</p>
+    </div>
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h3>Intrusion &amp; After-Hours Security</h3>
+      </div>
+      <p>Perimeter monitoring outside working hours, unauthorised entry into sensitive areas, and tampering at high-value zones — with direct escalation to security teams.</p>
+    </div>
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h3>Idle-Time &amp; Productivity</h3>
+      </div>
+      <p>Measures dwell time at each workstation or zone. Flags unusually idle areas, extended absences near active operations, and pattern-level productivity gaps across shifts.</p>
+    </div>
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/></svg>
+        </div>
+        <h3>Material Handling &amp; Heavy Loads</h3>
+      </div>
+      <p>Monitors loading and unloading activity, swing detection during hoisting, pedestrian-in-path warnings at weighing stations, and truck-dock safety during dispatch.</p>
+    </div>
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/><path d="M11 8v6M8 11h6"/></svg>
+        </div>
+        <h3>Quality Inspection</h3>
+      </div>
+      <p>Detects defects, misalignments, missing components, print or label errors, and other visual anomalies on production lines — before finished goods leave the floor.</p>
+    </div>
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-6 9 6v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+        </div>
+        <h3>Warehouse &amp; Inventory Movement</h3>
+      </div>
+      <p>Rack occupancy heatmaps, aisle congestion monitoring, stacking compliance, anomaly detection in movement patterns, and dispatch-area turnaround tracking.</p>
+    </div>
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="1" y="6" width="15" height="12" rx="1"/><path d="M16 10h4l3 3v5h-7"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/></svg>
+        </div>
+        <h3>Vehicle &amp; Logistics Tracking</h3>
+      </div>
+      <p>ANPR-based truck entry/exit logging, dock dwell-time measurement, empty-vs-loaded classification, and automated gate-pass reconciliation with dispatch records.</p>
+    </div>
+
+    <div class="solution">
+      <div class="solution-head">
+        <div class="icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s-8-5-8-12a8 8 0 0 1 16 0c0 7-8 12-8 12z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <h3>Environmental &amp; Hazard Monitoring</h3>
+      </div>
+      <p>Detects dust accumulation, oil or chemical spills, water pooling near electrical equipment, blocked fire exits, and general housekeeping deviations for ESG reporting.</p>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ INDUSTRIES / PERSONALISATION ============ -->
+<section id="industries">
+  <div class="label">Built Around Your Industry</div>
+  <h2 class="title">The ten above are a starting point. The custom ones are where we add the most value.</h2>
+  <p class="subtitle">
+    Beyond the standard capabilities, we design and build AI camera solutions tailored to your
+    industry's processes, compliance requirements, and the specific way your floor operates.
+    Some examples of what we can build.
+  </p>
+
+  <div class="industry-grid">
+
+    <div class="industry">
+      <div class="tag">Manufacturing</div>
+      <h4>Process-specific QC &amp; safety</h4>
+      <p>Assembly-line defect detection, tool and part verification, changeover monitoring, and process-specific safety rules around the unique equipment on your floor.</p>
+    </div>
+
+    <div class="industry">
+      <div class="tag">Food &amp; Pharma</div>
+      <h4>Clean-room &amp; hygiene compliance</h4>
+      <p>Hair-net, beard-cover, glove, and gowning compliance. Contamination alerts, batch traceability, cross-contamination prevention, and zone-based hygiene enforcement.</p>
+    </div>
+
+    <div class="industry">
+      <div class="tag">Chemical &amp; Energy</div>
+      <h4>Spill, leak &amp; static-zone monitoring</h4>
+      <p>Chemical spill detection, gas leak visualisation, static-sensitive area compliance, flare monitoring, and protective-gear enforcement in high-hazard zones.</p>
+    </div>
+
+    <div class="industry">
+      <div class="tag">Warehouse &amp; Logistics</div>
+      <h4>Load &amp; dispatch verification</h4>
+      <p>Rack stacking compliance, truck load verification, dock scheduling, cold-chain compliance, high-value goods tracking, and pick-pack accuracy monitoring.</p>
+    </div>
+
+    <div class="industry">
+      <div class="tag">Retail &amp; Hospitality</div>
+      <h4>Flow, footfall &amp; service</h4>
+      <p>Footfall tracking, queue length monitoring, staff-to-customer ratio, shelf occupancy, restricted-area access, and back-of-house compliance monitoring.</p>
+    </div>
+
+    <div class="industry">
+      <div class="tag">Construction &amp; Infrastructure</div>
+      <h4>Site safety &amp; progress</h4>
+      <p>Scaffolding safety, working-at-height compliance, hot-work permit monitoring, site PPE enforcement, material delivery tracking, and excavation-zone safety.</p>
+    </div>
+
+  </div>
+
+  <div class="custom-note">
+    <h5>Don't see your industry?</h5>
+    <p>
+      If you have a process, safety concern, or quality requirement that existing CCTV could
+      help with, we can design an AI solution for it. Describe the problem — we'll propose
+      how it can be built, installed, and measured.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ BENEFITS ============ -->
+<section id="benefits">
+  <div class="label">Key Benefits</div>
+  <h2 class="title">Why this matters — in rupees and in boardroom terms.</h2>
+  <p class="subtitle">
+    Written for the Plant Head, Operations Head, and the Board — not for a data scientist.
+    Actual impact would be measured against KPIs agreed at the start of implementation.
+  </p>
+
+  <div class="benefit-list">
+    <div class="benefit">
+      <div class="stat">Lower rework &amp; rejection</div>
+      <h4>Direct Cost Savings</h4>
+      <p>Catching defects and process drift earlier means fewer rejected batches, fewer rework hours, and fewer customer complaints reaching finished-goods dispatch.</p>
+    </div>
+    <div class="benefit">
+      <div class="stat">Proactive risk control</div>
+      <h4>Measurable Safety Improvement</h4>
+      <p>PPE compliance shifts from "mostly" to near-total. Near-miss events get captured with video evidence. Lost-time incidents reduce, supporting safer insurance renewals.</p>
+    </div>
+    <div class="benefit">
+      <div class="stat">Around-the-clock coverage</div>
+      <h4>Fewer Human Errors</h4>
+      <p>A supervisor cannot watch every camera. The AI would. Every missed helmet, unsafe proximity, or quality drift gets flagged consistently across all shifts.</p>
+    </div>
+    <div class="benefit">
+      <div class="stat">Bottleneck visibility</div>
+      <h4>Higher Productivity</h4>
+      <p>Real-time visibility into dwell time, line balance, and throughput — surfacing productivity gains without adding labour or equipment.</p>
+    </div>
+    <div class="benefit">
+      <div class="stat">Faster audit preparation</div>
+      <h4>Audit &amp; Compliance Ready</h4>
+      <p>Automatic, tamper-evident evidence trail for ISO, BRC, FSSC 22000, ESG reporting, and customer audits — reducing manual compilation significantly.</p>
+    </div>
+    <div class="benefit">
+      <div class="stat">Real-time mobile alerts</div>
+      <h4>Mobile-First Alerts</h4>
+      <p>Critical events would reach the right supervisor's phone via WhatsApp, SMS, or a mobile app — with video clip attached — so no one waits for the next shift briefing.</p>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ IMPLEMENTATION ============ -->
+<section id="implementation">
+  <div class="label">Implementation</div>
+  <h2 class="title">No hardware drama. A phased, modular build.</h2>
+  <p class="subtitle">
+    A proposed approach for how we would design, build, and install the platform — starting
+    small with one line or capability, then scaling as your team sees value.
+  </p>
+
+  <div class="impl-grid">
+    <div class="impl-step">
+      <div class="n">Step 01</div>
+      <h4>Survey &amp; Assess</h4>
+      <p>We would walk the floor, inspect existing CCTV quality, identify coverage gaps, and confirm which capabilities apply to which zones.</p>
+    </div>
+    <div class="impl-step">
+      <div class="n">Step 02</div>
+      <h4>Connect &amp; Build</h4>
+      <p>We would connect to existing IP/CCTV via RTSP — no new cameras needed if quality is sufficient — and build the AI models tuned for your lighting and layout.</p>
+    </div>
+    <div class="impl-step">
+      <div class="n">Step 03</div>
+      <h4>Deploy &amp; Alert</h4>
+      <p>On-premise edge device at your site (footage never leaves the site), or cloud if preferred. Mobile app and web dashboard go live for your team.</p>
+    </div>
+    <div class="impl-step">
+      <div class="n">Step 04</div>
+      <h4>Measure &amp; Scale</h4>
+      <p>Regular value reviews against KPIs agreed at the start. As capabilities prove out on one line, we would scale to more lines and more capabilities at your pace.</p>
+    </div>
+  </div>
+
+  <div class="impl-facts">
+    <div>
+      <div class="k">Hardware Required</div>
+      <div class="v">Your Existing CCTV</div>
+      <div class="d">IP, RTSP-capable, typically ONVIF. We verify feasibility during the site survey.</div>
+    </div>
+    <div>
+      <div class="k">Deployment Option</div>
+      <div class="v">On-Prem or Cloud</div>
+      <div class="d">On-premise edge server keeps all footage inside your network. Cloud option available.</div>
+    </div>
+    <div>
+      <div class="k">Access</div>
+      <div class="v">Mobile + Dashboard</div>
+      <div class="d">Live feeds, alerts with video clips, KPI dashboards, and audit reports on any device.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ WHY US ============ -->
+<section id="why-us">
+  <div class="label">Why Us</div>
+  <h2 class="title">An AI software approach — not another CCTV vendor.</h2>
+  <p class="subtitle">
+    Most vendors you meet will try to sell you new cameras. Our approach is to build the
+    intelligence layer on top of what you already have, shaped by your operations.
+  </p>
+
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="n">01</div>
+      <div>
+        <h4>Software, not hardware</h4>
+        <p>Our proposition is the intelligence layer on top of whatever cameras you own. No rip-and-replace, no vendor lock-in on hardware, no padding the scope with unnecessary devices.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="n">02</div>
+      <div>
+        <h4>Custom-built for your operation</h4>
+        <p>This is not a packaged "people detector" product. Every capability would be designed around how your floor actually operates — your zones, your workflows, your compliance rules.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="n">03</div>
+      <div>
+        <h4>Collaborative by design</h4>
+        <p>We would work as implementation partners — your plant, safety, and quality teams would shape which scenarios matter first, which KPIs count, and the pace of rollout.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="n">04</div>
+      <div>
+        <h4>Scalable, modular scope</h4>
+        <p>Start with one line, one capability. Add capabilities, cameras, and sites over time — pay only for what is built and turned on. No upfront commitment to the full catalogue.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ SCENARIOS ============ -->
+<section id="scenarios">
+  <div class="label">Use-Case Scenarios</div>
+  <h2 class="title">How the system would behave on a typical day.</h2>
+  <p class="subtitle">
+    Illustrative moments showing how the proposed capabilities would handle common situations
+    once implemented — not past incidents or live examples.
+  </p>
+
+  <div class="scenario">
+    <div class="n">01</div>
+    <div>
+      <h4>Worker enters restricted zone without required PPE</h4>
+      <p>A worker walks into a restricted production area without a helmet or required protective gear. The supervisor is elsewhere on the floor and doesn't see the breach.</p>
+      <div class="outcome">→ Alert with a short video clip would be sent to the floor supervisor in near real-time. Worker guided back to compliance before incident occurs.</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="n">02</div>
+    <div>
+      <h4>Smoke detected in storage area</h4>
+      <p>Night shift. Thin smoke starts rising from a wiring fault in a storage zone. The conventional smoke sensor has not yet reached threshold — it takes minutes in low-ventilation areas.</p>
+      <div class="outcome">→ Visual smoke model would flag the event early. Plant manager and security alerted immediately. Fire team dispatched before spread.</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="n">03</div>
+    <div>
+      <h4>Defect detected on a production line</h4>
+      <p>A subtle quality defect appears on a production line. On a normal day, it might be caught at final QC. On a busy day, several units may reach dispatch before anyone notices.</p>
+      <div class="outcome">→ Quality model would detect the irregularity at the station. Product flagged, held, and corrected before it leaves the line.</div>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <div class="n">04</div>
+    <div>
+      <h4>Forklift in pedestrian-only aisle</h4>
+      <p>Shift changeover. A forklift takes a shortcut through a designated pedestrian aisle while workers are walking through. No one sees it at the time.</p>
+      <div class="outcome">→ Forklift operator and safety lead notified with video. Incident logged automatically. Retraining item added to the weekly safety review.</div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<!-- ============ NEXT STEP ============ -->
+<section id="next-step">
+  <div class="label">Next Step</div>
+  <h2 class="title">If these capabilities align with your priorities, we can take it forward.</h2>
+  <p class="subtitle">
+    This is a capabilities proposal — a shared starting point for a conversation. Nothing here
+    is a finished product being sold off the shelf.
+  </p>
+
+  <div class="next-grid">
+    <div class="next-card">
+      <div class="n">01</div>
+      <div>
+        <h4>You decide what matters most</h4>
+        <p>Walk through the ten core capabilities and the custom directions with your plant, safety, and quality teams. Identify which would create the most value, and which you'd like to start with.</p>
+      </div>
+    </div>
+    <div class="next-card">
+      <div class="n">02</div>
+      <div>
+        <h4>We come and see the floor</h4>
+        <p>If there is interest, we would visit your site to understand your cameras, lines, and priorities in person — no commitment required at that stage.</p>
+      </div>
+    </div>
+    <div class="next-card">
+      <div class="n">03</div>
+      <div>
+        <h4>We share cost &amp; timeline</h4>
+        <p>Based on the scope you'd like to start with, we would share a detailed cost estimate and implementation timeline — tailored to your operation, not a boilerplate quote.</p>
+      </div>
+    </div>
+    <div class="next-card">
+      <div class="n">04</div>
+      <div>
+        <h4>We build and install</h4>
+        <p>Only after you approve scope, cost, and timeline do we begin building. From there, it is a collaborative implementation with your team involved at every step.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>VISION AI SYSTEMS  /  AI CAMERA SOLUTIONS</div>
+
+</footer>
+
+</body>
+</html>
